@@ -1,0 +1,16 @@
+<form [formGroup] = "form">
+  <h1>Login</h1>
+
+  <ion-item>
+    <ion-label position = "floating">Email or Username</ion-label>
+    <ion-input type = "text"placeholder="Enter your Email or Username" formControlName = "user"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position = "floating">Password</ion-label>
+    <ion-input type = "password" placeholder="Enter your password" formControlName = "password"></ion-input>
+  </ion-item>
+
+  <ion-button expand = "block" type = "submit" [disabled] = "form.invalid" (click) = "login()">Login</ion-button>
+
+</form>

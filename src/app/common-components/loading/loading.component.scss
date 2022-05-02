@@ -1,0 +1,50 @@
+$center: translate(-50%, -50%);
+
+.loader, .loader2 {
+    border: 16px solid #ffffff;
+    border-top: 16px solid #3498db; 
+    border-right: 16px solid #3498db;
+    border-radius: 50%;
+}
+
+.loader{
+    height: 400px;
+    width: 400px;
+    animation: spin 3s linear infinite;
+}
+
+.loader2 {
+    height: 300px;
+    width: 300px;
+    animation: spin 3s linear infinite reverse;
+}
+
+@keyframes spin {
+    0% { transform: $center rotate(0deg); }
+    100% { transform: $center rotate(360deg); }
+}
+
+
+.center, .image-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: $center;
+}
+
+.image-center{
+    top: 52%;
+}
+
+@keyframes fade{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.logo {
+    animation: fade 2s linear infinite;
+}
