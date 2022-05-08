@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,11 @@ import { CreateAgentComponent } from './pages/online/components/manage-agents/cr
 import { CreateAdminComponent } from './pages/online/components/manage-admins/create-admin/create-admin.component';
 import { LoadingComponent } from './common-components/loading/loading.component';
 import { DashboardComponent } from './pages/online/components/dashboard/dashboard.component';
+import { DriversListComponent } from './pages/online/components/manage-drivers/drivers-list/drivers-list.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AccountSettingsComponent } from './pages/online/components/account-settings/account-settings.component';
+import { AgentsListComponent } from './pages/online/components/manage-agents/agents-list/agents-list.component';
+import { AdminsListComponent } from './pages/online/components/manage-admins/admins-list/admins-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,11 @@ import { DashboardComponent } from './pages/online/components/dashboard/dashboar
     CreateAgentComponent,
     CreateAdminComponent,
     LoadingComponent,
-    DashboardComponent
+    DashboardComponent,
+    DriversListComponent,
+    AgentsListComponent,
+    AdminsListComponent,
+    AccountSettingsComponent
   ],
   entryComponents: [],
   imports: [
@@ -29,9 +38,11 @@ import { DashboardComponent } from './pages/online/components/dashboard/dashboar
     IonicModule.forRoot(), 
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDatatableModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
+  schemas : [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

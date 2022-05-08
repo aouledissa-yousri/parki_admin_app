@@ -9,6 +9,7 @@ import { AuthenticatedGuard } from './guards/authenticated/authenticated.guard';
 import { DriversListComponent } from './pages/online/components/manage-drivers/drivers-list/drivers-list.component';
 import { AdminsListComponent } from './pages/online/components/manage-admins/admins-list/admins-list.component';
 import { AgentsListComponent } from './pages/online/components/manage-agents/agents-list/agents-list.component';
+import { AccountSettingsComponent } from './pages/online/components/account-settings/account-settings.component';
 
 const routes: Routes = [
   {path: "", canActivate: [LoggedOutGuard], children: [
@@ -16,9 +17,11 @@ const routes: Routes = [
 
   ]},
 
-  {path: "dashboard", canActivate: [AuthenticatedGuard], children: [
-    {path: "", component: DashboardComponent},
-    {path: "manage_driver", component: DriversListComponent},
+  {path: "dashboard", component: DashboardComponent, canActivate: [AuthenticatedGuard], children: [
+    {path: "manage_drivers", component: DriversListComponent},
+    {path: "", redirectTo: "manage_drivers", pathMatch: "full"},
+    {path: "account_settings", component: AccountSettingsComponent},
+
 
     {path: "manage_admins", children: [
       {path: "", component: AdminsListComponent},

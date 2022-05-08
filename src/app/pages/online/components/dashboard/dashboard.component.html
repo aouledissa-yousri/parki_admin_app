@@ -2,22 +2,43 @@
 
   <div class = "container dashboard-container">
 
+    <div class = "user">
+      <ion-icon name="person" class = "user-icon"></ion-icon>
+      <b class = "username">{{getUsername()}}</b>
+    </div>
+
+    <div class = "settings">
+      <ion-button shape = "circle" color = "danger" (click) = "logout()">
+        <ion-icon name="power" class = "shutdown"></ion-icon>
+      </ion-button>
+  
+      <ion-button color = "light" shape = "circle" (click) = "settings()">
+        <ion-icon name="settings" class = "icon" ></ion-icon>
+      </ion-button>
+    </div>
+
     <div class = "container dashboard-bar">
       <img src = "assets/parki2.png">
 
 
-          <p class = "active-window window">Manage Drivers</p>
+          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageDrivers()" [ngClass] = "isActive(0) ? 'active-window' : 'inactive-window'">Manage Drivers</p>
 
-          <p class = "window">Manage Agents</p>
+          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageAgents()" [ngClass] = "isActive(1) ? 'active-window' : 'inactive-window'">Manage Agents</p>
 
-          <p class = "window">Manage Admins</p>
-
-
-
-
-
-
+          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageAdmins()" [ngClass] = "isActive(2) ? 'active-window' : 'inactive-window'">Manage Admins</p>
+  
     </div>
+
+
+
+    <div class = "main">
+      <router-outlet></router-outlet>
+    </div>
+
+
+
+
+
   </div>
 
 

@@ -8,12 +8,12 @@
 
 .dashboard-container{
     position: relative;
-    top: 10%;
+    top: 5%;
     background: white;
-    width: 90%;
-    left: 5%;
+    width: 95%;
+    left: 2%;
     border-radius: 10px;
-    height: 80%;
+    height: 90%;
     box-shadow: 0px 5px 10px 4px rgba(163, 163, 163, 0.534);
 }
 
@@ -28,17 +28,68 @@
 }
 
 .active-window {
-    background: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+    background: #09c6f9;
+
 }
 
 .window {
     padding: 20px;
     width: 100%;
     cursor: pointer;
-    background: none;
-    transition: background 1s ease-out;
+    margin-top: -15px;
+    font-size: 90%;
 }
 
-.window:hover {
-    background: #09c6f9;
+.inactive-window{
+    transition: background 1s;
 }
+
+.inactive-window:hover {
+    background: #04718f;
+}
+
+
+
+ion-button[shape=circle] {
+    --border-radius: 50%;
+    width: 56px;
+    height: 56px;
+}
+
+.settings {
+    float: right;
+}
+
+.icon {
+    font-size: 30px !important;
+}
+
+.user-icon{
+    border: 1px solid white;
+    background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+    color: white;
+    font-size: 35px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.user {
+    position: absolute;
+    left: 20%;
+}
+
+.username {
+    position: relative;
+    bottom: 20px;
+    left: 10px;
+}
+
+.main {
+    position: absolute;
+    left: 21%;
+    height: 88%;
+    top: 10%;
+    width: 78%;
+}
+
+

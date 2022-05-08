@@ -1,0 +1,48 @@
+<div class = "container">
+  <h1 style = "width: fit-content;">
+    <b>Account settings</b>
+  </h1>
+
+  <form [formGroup] = "form">
+    <ion-list>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "name" ></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Lastname</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "lastname"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "email"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Username</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "username"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Phone Number</ion-label>
+        <ion-input type = "number" color = "medium" formControlName = "phoneNumber"></ion-input>
+      </ion-item>
+      
+      
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type = "password" color = "medium" formControlName = "password"></ion-input>
+      </ion-item><br><br>
+      
+  
+      <div class = "actions">
+        <ion-button color = "success" (click) = "updateAccount()">Save</ion-button>&nbsp;
+        <ion-button color = "danger">Reset</ion-button>
+      </div>
+    </ion-list>
+  </form>
+
+
+</div>

@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
       this.hash.saltPassword(this.form.value["password"])
     )
 
+    this.loading = true
+
     this.adminApi.login(credentials).subscribe(data => {
       switch(data.message){
         case "success":
@@ -95,6 +97,10 @@ export class LoginComponent implements OnInit {
 
   getUserData(data){
     localStorage.setItem("token", data.token)
+    localStorage.setItem("name", data.user.name)
+    localStorage.setItem("lastname", data.user.lastname)
+    localStorage.setItem("email", data.user.email)
+    localStorage.setItem("phoneNumber", data.user.phoneNumber)
     localStorage.setItem("username", data.user.username)
   }
   

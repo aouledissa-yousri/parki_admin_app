@@ -1,3 +1,39 @@
-<p>
-  drivers-list works!
-</p>
+<div class = "container ">
+  <h1 style = "width: fit-content;">
+    <b>Drivers list</b>
+  </h1>
+
+     <ngx-datatable 
+     class = "material driver-table"
+     [rows] = "drivers.getDrivers()"
+     [rowHeight] = "80"
+     [columns] = "columns"
+     [columnHeight] = "50"
+     [sortType] = "multi"
+     [headerHeight] = "50"
+     [limit]="4">
+
+
+
+     <ngx-datatable-column *ngFor = "let column of columns; index as i" name = "{{column.name}}" #column [width] = "column.width">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <p>{{value}}</p>
+      </ng-template>
+    </ngx-datatable-column>
+
+     -<ngx-datatable-column name = "Actions" width = "200">
+      <ng-template #buttonsTemplate let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
+        <ion-button color = "primary" class = "action" >See More</ion-button>
+        <ion-button color = "danger" class = "action" (click) = "delete(rowIndex + 1)">Delete</ion-button>
+      </ng-template>
+    </ngx-datatable-column>
+
+      
+
+     </ngx-datatable>
+  
+
+     
+
+
+</div>
