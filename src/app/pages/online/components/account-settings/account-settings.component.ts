@@ -28,7 +28,7 @@ export class AccountSettingsComponent implements OnInit {
       username: [admin.username, Validators.required],
       email: [admin.email, Validators.required],
       phoneNumber: [admin.phoneNumber, [Validators.required, Validators.min(1)]],
-      password : ["", [Validators.required, Validators.minLength(8)]]
+      password : [""]
     })
   }
 
@@ -46,6 +46,12 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   updateAccount(){
+
+    if(this.form.value["password"] == ""){
+      this.showAlert("You must enter your new or current password to update your account data", "Error")
+      return
+    }
+
     this.admin = new Admin(
       this.form.value["name"],
       this.form.value["lastname"],
@@ -55,10 +61,11 @@ export class AccountSettingsComponent implements OnInit {
       this.hash.saltPassword(this.form.value["password"]),
     )
 
+
     this.adminApi.updateAdminAccount(this.admin).subscribe(data => {
       if(data.result == "account data has been updated successfully"){
         this.updateUserData(this.admin)
-        this.showAlert(data.result)
+        this.showAlert(data.result, "Success")
       }
     })
   }
@@ -78,9 +85,9 @@ export class AccountSettingsComponent implements OnInit {
     localStorage.setItem("username", admin.username)
   }
 
-  async showAlert(message: string){
+  async showAlert(message: string, header: string){
     await this.alert.create({
-      header: "Success",
+      header: header,
       message: message,
       cssClass: "dialogue-content",
       buttons: [
@@ -90,6 +97,10 @@ export class AccountSettingsComponent implements OnInit {
         }
       ]
     }).then(box => box.present())
+  }
+
+  reset(){
+    this.initForm(new Admin("","","","","",""))
   }
 
 }
