@@ -7,6 +7,8 @@ import { CreateAdminComponent } from './pages/online/components/manage-admins/cr
 import { LoggedOutGuard } from './guards/logged-out/logged-out.guard';
 import { AuthenticatedGuard } from './guards/authenticated/authenticated.guard';
 import { DriversListComponent } from './pages/online/components/manage-drivers/drivers-list/drivers-list.component';
+import { AdminsListComponent } from './pages/online/components/manage-admins/admins-list/admins-list.component';
+import { AgentsListComponent } from './pages/online/components/manage-agents/agents-list/agents-list.component';
 
 const routes: Routes = [
   {path: "", canActivate: [LoggedOutGuard], children: [
@@ -16,8 +18,19 @@ const routes: Routes = [
 
   {path: "dashboard", canActivate: [AuthenticatedGuard], children: [
     {path: "", component: DashboardComponent},
+    {path: "manage_driver", component: DriversListComponent},
 
-    {path: "manage_driver", component: DriversListComponent}
+    {path: "manage_admins", children: [
+      {path: "", component: AdminsListComponent},
+      {path: "create_admin", component: CreateAdminComponent},
+    ]},
+
+    {path: "manage_agents", children: [
+      {path: "", component: AgentsListComponent},
+      {path: "create_agent", component: CreateAgentComponent},
+    ]},
+
+
 
   ]}
 ];
