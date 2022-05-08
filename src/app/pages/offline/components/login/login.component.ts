@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Credentials } from 'src/app/models/Credentials';
 import { HashingService } from 'src/app/services/hashingService/hashing.service';
 import { AdminApiService } from '../../../../services/adminApiService/admin-api.service';
@@ -12,14 +14,21 @@ import { AdminApiService } from '../../../../services/adminApiService/admin-api.
 export class LoginComponent implements OnInit {
 
   form = new FormGroup({})
+  loading = true
 
-  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService) { }
+  constructor(
+    private builder: FormBuilder, 
+    private adminApi: AdminApiService, 
+    private hash: HashingService, 
+    private router: Router,
+    private alert: AlertController) { }
 
   ngOnInit() {
     this.initForm()
+    this.stopLoading()
   }
 
-  private initForm(){
+  initForm(){
     this.form = this.builder.group({
       user: ["", Validators.required],
       password: ["", Validators.required],
@@ -34,10 +43,60 @@ export class LoginComponent implements OnInit {
     )
 
     this.adminApi.login(credentials).subscribe(data => {
-      console.log(data)
-      this.initForm()
+      switch(data.message){
+        case "success":
+          this.getUserData(data)
+          this.router.navigate(["dashboard"])
+          return
+        default: 
+          this.showAlert(data.message)
+      }
+
     })
 
   }
+
+
+  private stopLoading(){
+    let self = this
+    setTimeout(() => {
+      self.loading = false
+    }, 2000)
+  }
+
+
+  async showAlert(message: string){
+    let desc = ""
+    switch(message){
+      case "password is wrong":
+        desc = "Your password is wrong please try again"
+        break
+      case "user not found":
+        desc = "Wrong user credentials"
+        break 
+      case "your account is temporarily blocked please try again later!":
+        desc = "your account is blocked temporarily due to multiple failed login attempts"
+        break
+    }
+
+
+    await this.alert.create({
+      header: message,
+      message: desc,
+      cssClass: "dialogue-content",
+      buttons: [
+        {
+          cssClass: "alertButton",
+          text: "Ok"
+        }
+      ]
+    }).then(box => box.present())
+  }
+
+  getUserData(data){
+    localStorage.setItem("token", data.token)
+    localStorage.setItem("username", data.user.username)
+  }
+  
 
 }

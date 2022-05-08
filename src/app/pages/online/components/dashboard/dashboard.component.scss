@@ -1,0 +1,44 @@
+.background {
+    background-color: #045de9;
+    background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+    height: 100%;
+    animation: fade 2s;
+}
+
+
+.dashboard-container{
+    position: relative;
+    top: 10%;
+    background: white;
+    width: 90%;
+    left: 5%;
+    border-radius: 10px;
+    height: 80%;
+    box-shadow: 0px 5px 10px 4px rgba(163, 163, 163, 0.534);
+}
+
+.dashboard-bar {
+    color: white;
+    background-color: #485461;
+    background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    width: 20%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.active-window {
+    background: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+}
+
+.window {
+    padding: 20px;
+    width: 100%;
+    cursor: pointer;
+    background: none;
+    transition: background 1s ease-out;
+}
+
+.window:hover {
+    background: #09c6f9;
+}

@@ -9,11 +9,19 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/offline/components/login/login.component';
+import { CreateAgentComponent } from './pages/online/components/manage-agents/create-agent/create-agent.component';
+import { CreateAdminComponent } from './pages/online/components/manage-admins/create-admin/create-admin.component';
+import { LoadingComponent } from './common-components/loading/loading.component';
+import { DashboardComponent } from './pages/online/components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    CreateAgentComponent,
+    CreateAdminComponent,
+    LoadingComponent,
+    DashboardComponent
   ],
   entryComponents: [],
   imports: [

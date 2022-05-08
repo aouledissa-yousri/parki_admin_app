@@ -1,16 +1,40 @@
-<form [formGroup] = "form">
-  <h1>Login</h1>
+<div [hidden] = "!loading">
+  <app-loading></app-loading>
+</div>
 
-  <ion-item>
-    <ion-label position = "floating">Email or Username</ion-label>
-    <ion-input type = "text"placeholder="Enter your Email or Username" formControlName = "user"></ion-input>
-  </ion-item>
 
-  <ion-item>
-    <ion-label position = "floating">Password</ion-label>
-    <ion-input type = "password" placeholder="Enter your password" formControlName = "password"></ion-input>
-  </ion-item>
+<div class = "container background" [hidden] = "loading">
 
-  <ion-button expand = "block" type = "submit" [disabled] = "form.invalid" (click) = "login()">Login</ion-button>
 
-</form>
+  <div class = "container container-form">
+
+    <ion-icon name="person" class = "user-icon"></ion-icon>
+    <h1><b>Sign In</b></h1>
+
+    <form [formGroup] = "form" (ngSubmit) = "login()">
+      <ion-item>
+        <ion-input placeholder = "Email/Username" type = "text" formControlName = "user" (keyup.enter)="login()">
+          <ion-icon name="person"></ion-icon>&nbsp;
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input placeholder = "password" type = "password" formControlName = "password" (keyup.enter)="login()">
+          <ion-icon name="key"></ion-icon>&nbsp;
+        </ion-input>
+      </ion-item><br>
+
+      <ion-button color = "success" type = "submit">Login</ion-button>&nbsp; &nbsp;
+      <ion-button color = "danger" type = "button" (click) = "initForm()">Reset</ion-button>
+    </form>
+
+
+  </div>
+
+
+
+
+
+
+
+</div>

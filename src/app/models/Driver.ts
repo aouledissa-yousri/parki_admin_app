@@ -16,7 +16,7 @@ export class Driver extends User {
         public transactions: Transaction[],
         public payments: PaymentLog[]
     ){
-        super(name, lastname, username, email, phoneNumber, password);
+        super(name, lastname, username, email, phoneNumber, password)
     }
         
 

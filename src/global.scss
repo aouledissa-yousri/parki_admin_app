@@ -24,3 +24,20 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+.alertButton{
+    background: linear-gradient(to top right, rgb(0, 223, 137), rgb(199, 245, 226)) !important;
+    color: white !important;
+    margin-right: 30% !important;
+    font-weight: bold !important;
+    width: 40% !important;
+    padding-right: 17% !important;
+}
+
+.dialogue-content{
+    text-align: center !important;
+    .alert-head {
+        text-align: center !important;
+    }
+}

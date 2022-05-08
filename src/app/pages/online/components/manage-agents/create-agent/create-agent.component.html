@@ -1,0 +1,53 @@
+
+<form [formGroup] = "form">
+  <h1>Create Agent Account</h1>
+
+  <ion-item>
+    <ion-label position = "floating">Name</ion-label>
+    <ion-input type = "text"placeholder="Enter your name" formControlName = "name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position = "floating">Last name</ion-label>
+    <ion-input type = "text" placeholder="Enter your Last name" formControlName = "lastname"></ion-input>
+    
+  </ion-item>
+
+  <ion-item>
+    <ion-label position = "floating">Username</ion-label>
+    <ion-input type = "text" placeholder="Enter your username" formControlName = "username"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position = "floating">Email</ion-label>
+    <ion-input type = "text" placeholder="Enter your email" formControlName = "email" ></ion-input>
+
+  </ion-item>
+
+  <ion-item>
+    <ion-label position = "floating">Phone number</ion-label>
+    <ion-input type = "number" placeholder="Enter your phone number" formControlName = "phoneNumber"></ion-input>
+  </ion-item>
+
+  <ion-radio-group formControlName = "type">
+    <ion-item>
+      <ion-label>Private Agent</ion-label>
+      <ion-radio value = "Private" checked></ion-radio>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Municipal Agent</ion-label>
+      <ion-radio value = "Municipal"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-item>
+    <ion-label position = "floating">Work address</ion-label>
+    <ion-input type = "text" placeholder="Enter your email" formControlName = "workAddress" ></ion-input>
+
+  </ion-item>
+
+  <ion-button expand = "block" type = "submit" [disabled] = "form.invalid" (click) = "createAgent()">sign Up</ion-button>
+</form>
+
+<!--default password is generated-->
