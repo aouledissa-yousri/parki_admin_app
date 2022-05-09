@@ -2,8 +2,11 @@
     <h1 style = "width: fit-content;">
       <b>Drivers list</b>
     </h1>
-  
-       <ngx-datatable 
+
+
+        <app-small-loading [hidden] = "!loading"></app-small-loading>
+        
+        <ngx-datatable 
         class = "material driver-table"
         [rows] = "drivers"
         [rowHeight] = "80"
@@ -12,30 +15,32 @@
         [sortType] = "multi"
         [headerHeight] = "50"
         [limit]="4"
-        [footerHeight]="50">
+        [footerHeight]="50"
+        [hidden] = "loading">    
+
+          
+     
   
-  
-  
-        <ngx-datatable-column name = "id" #column width = "50">
-          <ng-template let-row="row" let-value="value" let-rowIndex = "rowIndex" ngx-datatable-cell-template>
-            <p>{{rowIndex + 1}}</p>
-          </ng-template>
-        </ngx-datatable-column>
-  
-        <ngx-datatable-column *ngFor = "let column of columns; index as i" name = "{{column.name}}" #column [width] = "column.width">
-          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <p>{{value}}</p>
-          </ng-template>
-        </ngx-datatable-column>
-  
-        <ngx-datatable-column name = "Actions" width = "200">
-          <ng-template #buttonsTemplate let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
-            <ion-button color = "primary" class = "action" >See More</ion-button>
-            <ion-button color = "danger" class = "action" (click) = "deleteConfirmationDialog(rowIndex)">Delete</ion-button>
-          </ng-template>
-       </ngx-datatable-column>
-  
-  
+
+
+          <ngx-datatable-column name = "id" #column width = "50">
+            <ng-template let-row="row" let-value="value" let-rowIndex = "rowIndex" ngx-datatable-cell-template>
+              <p>{{rowIndex + 1}}</p>
+            </ng-template>
+          </ngx-datatable-column>
+    
+          <ngx-datatable-column *ngFor = "let column of columns; index as i" name = "{{column.name}}" #column [width] = "column.width">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <p>{{value}}</p>
+            </ng-template>
+          </ngx-datatable-column>
+    
+          <ngx-datatable-column name = "Actions" width = "270">
+            <ng-template #buttonsTemplate let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
+              <ion-button color = "primary" class = "action" (click) = "seeMore(rowIndex)">See More</ion-button>
+              <ion-button color = "danger" class = "action" (click) = "deleteConfirmationDialog(rowIndex)">Delete</ion-button>
+            </ng-template>
+         </ngx-datatable-column>
       </ngx-datatable> <br>
     
   

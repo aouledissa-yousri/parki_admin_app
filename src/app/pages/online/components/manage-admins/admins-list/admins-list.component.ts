@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AdminApiService } from 'src/app/services/adminApiService/admin-api.service';
 import { Admin } from '../../../../../models/Admin';
 
@@ -12,6 +12,8 @@ import { Admin } from '../../../../../models/Admin';
 export class AdminsListComponent implements OnInit {
 
   admins: Admin[]
+  loading = true
+  deletionLoading = false
 
   columns = [
     {name: "Name"},
@@ -21,7 +23,7 @@ export class AdminsListComponent implements OnInit {
     {name: "Phone number"},
   ]
 
-  constructor(private adminApi: AdminApiService, private alert: AlertController, private router: Router) { }
+  constructor(private adminApi: AdminApiService, private alert: AlertController, private router: Router, private loadingAlert: LoadingController) { }
 
   ngOnInit() {
     this.getAdmins()
@@ -30,6 +32,7 @@ export class AdminsListComponent implements OnInit {
   private getAdmins(){
     this.adminApi.getAdmins(localStorage.getItem("workAddress"), localStorage.getItem("username")).subscribe(admins => {
       this.admins = admins
+      this.loading = false
     })
   }
 
@@ -44,6 +47,7 @@ export class AdminsListComponent implements OnInit {
           cssClass: "confirmButton",
           text: "Confirm",
           handler: () => {
+            this.showLoadingBox()
             this.delete(id)
           }
         },
@@ -91,6 +95,14 @@ export class AdminsListComponent implements OnInit {
   }
 
 
+  async showLoadingBox(){
+    await this.loadingAlert.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000,
+    }).then(load => load.present())
+  }
+  
 
 
 }

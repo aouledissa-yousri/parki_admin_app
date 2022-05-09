@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AdminApiService } from 'src/app/services/adminApiService/admin-api.service';
 import { Router } from '@angular/router';
 import { Agent } from 'src/app/models/Agent';
@@ -12,6 +12,7 @@ import { Agent } from 'src/app/models/Agent';
 export class AgentsListComponent implements OnInit {
 
   agents: Agent[]
+  loading = true
 
   columns = [
     {name: "Name"},
@@ -21,7 +22,7 @@ export class AgentsListComponent implements OnInit {
     {name: "Phone number"},
   ]
 
-  constructor(private adminApi: AdminApiService, private alert: AlertController, private router: Router) { }
+  constructor(private adminApi: AdminApiService, private alert: AlertController, private router: Router, private loadingAlert: LoadingController) { }
 
   ngOnInit() {
     this.getAgents()
@@ -30,6 +31,7 @@ export class AgentsListComponent implements OnInit {
   private getAgents(){
     this.adminApi.getMunicipalAgents("laouina").subscribe(agents => {
       this.agents = agents
+      this.loading = false
     })
   }
 
@@ -76,6 +78,7 @@ export class AgentsListComponent implements OnInit {
           cssClass: "confirmButton",
           text: "Confirm",
           handler: () => {
+            this.showLoadingBox()
             this.delete(id)
           }
         },
@@ -88,5 +91,14 @@ export class AgentsListComponent implements OnInit {
     }).then(box => box.present())
 
   }
+
+  async showLoadingBox(){
+    await this.loadingAlert.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000,
+    }).then(load => load.present())
+  }
+  
 
 }

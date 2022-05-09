@@ -4,7 +4,7 @@ import { HashingService } from 'src/app/services/hashingService/hashing.service'
 import { AdminApiService } from '../../../../../services/adminApiService/admin-api.service';
 import { MunicipalAgent } from '../../../../../models/MunicipalAgent';
 import { PrivateAgent } from '../../../../../models/PrivateAgent';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-agent',
@@ -15,7 +15,7 @@ export class CreateAgentComponent implements OnInit {
 
   form = new FormGroup({})
 
-  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService, private alert: AlertController) { }
+  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService, private alert: AlertController, private loadingAlert: LoadingController) { }
 
   ngOnInit() {
     this.initForm()
@@ -36,6 +36,7 @@ export class CreateAgentComponent implements OnInit {
   createAgent(){
     
     let agent = this.createAgentObject()
+    this.showLoadingBox()
     this.adminApi.createMunicipalAgent(agent).subscribe(data => { this.verifyAgentCreationResult(data) })
 
   }
@@ -100,6 +101,14 @@ export class CreateAgentComponent implements OnInit {
         }
       ]
     }).then(box => box.present())
+  }
+
+  async showLoadingBox(){
+    await this.loadingAlert.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000,
+    }).then(load => load.present())
   }
 
   reset(){

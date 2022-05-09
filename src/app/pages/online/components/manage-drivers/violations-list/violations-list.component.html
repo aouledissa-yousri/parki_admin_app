@@ -1,0 +1,46 @@
+<div class = "container ">
+  <h1 style = "width: fit-content;">
+    <b>car No.{{carSerialNumber}} violations</b>
+  </h1>
+
+
+      <app-small-loading [hidden] = "!loading"></app-small-loading>
+      
+      <ngx-datatable 
+      class = "material driver-table"
+      [rows] = "violations"
+      [rowHeight] = "80"
+      [columns] = "columns"
+      [columnHeight] = "50"
+      [sortType] = "multi"
+      [headerHeight] = "50"
+      [limit]="4"
+      [footerHeight]="50"
+      [hidden] = "loading">    
+
+        
+   
+
+      <ngx-datatable-column name = "id" #column width = "50">
+        <ng-template let-row="row" let-value="value" let-rowIndex = "rowIndex" ngx-datatable-cell-template>
+          <p>{{rowIndex + 1}}</p>
+        </ng-template>
+      </ngx-datatable-column>
+
+        <ngx-datatable-column *ngFor = "let column of columns; index as i" name = "{{column.name}}" #column width = "200">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
+            <p>{{value}}</p>
+          </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable> <br>
+  
+
+    <ion-button color = "primary" (click) = "back()" [hidden] = "loading">Drivers List</ion-button>
+    <ion-button color = "success" (click) = "payments()" [hidden] = "loading">Payments made</ion-button>
+    <ion-button color = "success" (click) = "carList()" [hidden] = "loading">Car List</ion-button>
+    
+
+     
+
+
+</div>

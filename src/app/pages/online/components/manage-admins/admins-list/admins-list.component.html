@@ -3,6 +3,9 @@
     <b>Admins list</b>
   </h1>
 
+
+      <app-small-loading [hidden] = "!loading"></app-small-loading>
+
      <ngx-datatable 
       class = "material driver-table"
       [rows] = "admins"
@@ -12,7 +15,8 @@
       [sortType] = "multi"
       [headerHeight] = "50"
       [limit]="4"
-      [footerHeight]="50">
+      [footerHeight]="50"
+      [hidden] = "loading">
 
 
 
@@ -28,16 +32,15 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name = "Actions" width = "200">
+      <ngx-datatable-column name = "Actions" width = "270">
         <ng-template #buttonsTemplate let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
-          <ion-button color = "primary" class = "action" >See More</ion-button>
-          <ion-button color = "danger" class = "action" (click) = "deleteConfirmationDialog(rowIndex)">Delete</ion-button>
+          <ion-button color = "danger" (click) = "deleteConfirmationDialog(rowIndex)">Delete</ion-button>
         </ng-template>
      </ngx-datatable-column>
 
 
     </ngx-datatable> <br>
 
-    <ion-button color = "success" (click) = "createAdmin()">Create new admin</ion-button>
+    <ion-button color = "success" (click) = "createAdmin()" [hidden] = "loading">Create new admin</ion-button>
 
 </div>

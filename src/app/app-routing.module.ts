@@ -10,6 +10,9 @@ import { DriversListComponent } from './pages/online/components/manage-drivers/d
 import { AdminsListComponent } from './pages/online/components/manage-admins/admins-list/admins-list.component';
 import { AgentsListComponent } from './pages/online/components/manage-agents/agents-list/agents-list.component';
 import { AccountSettingsComponent } from './pages/online/components/account-settings/account-settings.component';
+import { CarsListComponent } from './pages/online/components/manage-drivers/cars-list/cars-list.component';
+import { PaymentsComponent } from './pages/online/components/manage-drivers/payments/payments.component';
+import { ViolationsListComponent } from './pages/online/components/manage-drivers/violations-list/violations-list.component';
 
 const routes: Routes = [
   {path: "", canActivate: [LoggedOutGuard], children: [
@@ -18,7 +21,12 @@ const routes: Routes = [
   ]},
 
   {path: "dashboard", component: DashboardComponent, canActivate: [AuthenticatedGuard], children: [
-    {path: "manage_drivers", component: DriversListComponent},
+    {path: "manage_drivers", children: [
+      {path: "", component: DriversListComponent},
+      {path: "cars/:username", component: CarsListComponent},
+      {path: "payments/:username", component: PaymentsComponent},
+      {path: "cars/violations/:username/:carSerialNumber", component: ViolationsListComponent}
+    ]},
     {path: "", redirectTo: "manage_drivers", pathMatch: "full"},
     {path: "account_settings", component: AccountSettingsComponent},
 

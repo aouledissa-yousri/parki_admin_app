@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Admin } from '../../../../models/Admin';
 import { HashingService } from '../../../../services/hashingService/hashing.service';
 import { AdminApiService } from '../../../../services/adminApiService/admin-api.service';
@@ -15,7 +15,7 @@ export class AccountSettingsComponent implements OnInit {
   form = new FormGroup({})
   admin: Admin
 
-  constructor(private builder: FormBuilder, private alert: AlertController, private hash: HashingService, private adminApi: AdminApiService) { }
+  constructor(private builder: FormBuilder, private alert: AlertController, private hash: HashingService, private adminApi: AdminApiService, private loadingAlert: LoadingController) { }
 
   ngOnInit() {
     this.getAdminData()
@@ -52,6 +52,8 @@ export class AccountSettingsComponent implements OnInit {
       this.showAlert("You must enter your new or current password to update your account data", "Error")
       return
     }
+
+    this.showLoadingBox()
 
     this.admin = new Admin(
       this.form.value["name"],
@@ -103,6 +105,14 @@ export class AccountSettingsComponent implements OnInit {
 
   reset(){
     this.initForm(new Admin("","","","","","",""))
+  }
+
+  async showLoadingBox(){
+    await this.loadingAlert.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000,
+    }).then(load => load.present())
   }
 
 }

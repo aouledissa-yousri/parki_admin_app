@@ -48,6 +48,13 @@ export class AdminApiService {
   
 
   //getting user data
+
+  getDriverData(username: string): Observable<Driver>{
+    return this.http.get<Driver>(URL+"/manageUsers/getDriverData/"+username)
+  }
+
+
+
   getDrivers(): Observable<Driver[]> {
     return this.http.get<Driver[]>(URL+"/manageUsers/getDrivers/")
   }

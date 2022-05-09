@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Driver } from 'src/app/models/Driver';
 import { AdminApiService } from '../../../../../services/adminApiService/admin-api.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-drivers-list',
@@ -10,7 +12,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class DriversListComponent implements OnInit {
 
+  loading = true
   drivers: Driver[]
+  
   columns = [
     {name: "Name"},
     {name: "Lastname"},
@@ -19,7 +23,7 @@ export class DriversListComponent implements OnInit {
     {name: "Phone number"},
   ]
 
-  constructor(private adminApi: AdminApiService, private alert: AlertController) { }
+  constructor(private adminApi: AdminApiService, private alert: AlertController, private loadingAlert: LoadingController, private router: Router) { }
 
   ngOnInit() {
     this.getDrivers()
@@ -28,11 +32,12 @@ export class DriversListComponent implements OnInit {
   private getDrivers(){
     this.adminApi.getDrivers().subscribe(drivers => {
       this.drivers = drivers
+      this.loading = false
     })
   }
 
   delete(id: number){
-    this.adminApi.deleteDriver(this.drivers[id-1].username).subscribe(data => {
+    this.adminApi.deleteDriver(this.drivers[id].username).subscribe(data => {
       this.drivers = this.drivers.filter(driver => this.drivers.indexOf(driver) != id)
 
       if(data.result == "Driver account has been deleted successfully"){
@@ -50,7 +55,7 @@ export class DriversListComponent implements OnInit {
       buttons: [
         {
           cssClass: "alertButton",
-          text: "Yes",
+          text: "Ok",
         },
         
       ]
@@ -68,6 +73,7 @@ export class DriversListComponent implements OnInit {
           cssClass: "confirmButton",
           text: "Confirm",
           handler: () => {
+            this.showLoadingBox()
             this.delete(id)
           }
         },
@@ -80,5 +86,18 @@ export class DriversListComponent implements OnInit {
     }).then(box => box.present())
 
   }
+
+  async showLoadingBox(){
+    await this.loadingAlert.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000,
+    }).then(load => load.present())
+  }
+
+  seeMore(id: number){
+    this.router.navigate(["dashboard/manage_drivers/cars", this.drivers[id].username])
+  }
+  
 
 }

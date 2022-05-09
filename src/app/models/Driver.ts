@@ -18,6 +18,10 @@ export class Driver extends User {
     ){
         super(name, lastname, username, email, phoneNumber, password)
     }
+
+    public getCar(carSerialNumber: string){
+        return this.cars.filter(car => car.carSerialNumber == carSerialNumber)[0].violations
+    }
         
 
 }

@@ -21,11 +21,11 @@
       <img src = "assets/parki2.png">
 
 
-          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageDrivers()" [ngClass] = "isActive(0) ? 'active-window' : 'inactive-window'">Manage Drivers</p>
+          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageDrivers()" [ngClass] = "isActive('/dashboard/manage_drivers') ? 'active-window' : 'inactive-window'">Manage Drivers</p>
 
-          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageAgents()" [ngClass] = "isActive(1) ? 'active-window' : 'inactive-window'">Manage Agents</p>
+          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageAgents()" [ngClass] = "isActive('/dashboard/manage_agents') ? 'active-window' : 'inactive-window'">Manage Agents</p>
 
-          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageAdmins()" [ngClass] = "isActive(2) ? 'active-window' : 'inactive-window'">Manage Admins</p>
+          <p class = "window" routerLinkActive = "active-widnow" (click) = "manageAdmins()" [ngClass] = "isActive('/dashboard/manage_admins') ? 'active-window' : 'inactive-window'">Manage Admins</p>
   
     </div>
 

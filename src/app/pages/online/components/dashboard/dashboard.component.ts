@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  routes = [1,0,0]
 
   constructor(private router: Router) { }
 
@@ -32,29 +31,19 @@ export class DashboardComponent implements OnInit {
 
   manageDrivers() {
     this.router.navigate(["dashboard/manage_drivers"])
-    this.activateRoute(0)
   }
 
   manageAgents() {
     this.router.navigate(["dashboard/manage_agents"])
-    this.activateRoute(1)
   }
 
   manageAdmins() {
     this.router.navigate(["dashboard/manage_admins"])
-    this.activateRoute(2)
   }
 
-  private activateRoute(index: number) {
-    for(let i =0; i< this.routes.length; i++){
-      if(i != index)
-        this.routes[i] = 0
-    }
-    this.routes[index] = 1
-  }
 
-  isActive(index: number){
-    return this.routes[index] == 1
+  isActive(route: string){
+    return this.router.url == route
   }
 
   settings(){

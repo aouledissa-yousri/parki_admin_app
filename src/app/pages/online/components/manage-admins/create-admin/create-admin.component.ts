@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Admin } from 'src/app/models/Admin';
 import { AdminApiService } from 'src/app/services/adminApiService/admin-api.service';
 import { HashingService } from 'src/app/services/hashingService/hashing.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-admin',
@@ -14,7 +14,7 @@ export class CreateAdminComponent implements OnInit {
 
   form = new FormGroup({})
 
-  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService, private alert: AlertController) { }
+  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService, private alert: AlertController, private loadingAlert: LoadingController) { }
 
   ngOnInit() {
     this.initForm()
@@ -31,6 +31,8 @@ export class CreateAdminComponent implements OnInit {
   }
 
   createAdmin(){
+
+    this.showLoadingBox()
 
     let admin = new Admin(
       this.form.value["name"],
@@ -70,5 +72,13 @@ export class CreateAdminComponent implements OnInit {
 
   reset(){
     this.initForm()
+  }
+
+  async showLoadingBox(){
+    await this.loadingAlert.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000,
+    }).then(load => load.present())
   }
 }
