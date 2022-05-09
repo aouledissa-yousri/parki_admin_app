@@ -4,6 +4,7 @@ import { HashingService } from 'src/app/services/hashingService/hashing.service'
 import { AdminApiService } from '../../../../../services/adminApiService/admin-api.service';
 import { MunicipalAgent } from '../../../../../models/MunicipalAgent';
 import { PrivateAgent } from '../../../../../models/PrivateAgent';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-agent',
@@ -14,7 +15,7 @@ export class CreateAgentComponent implements OnInit {
 
   form = new FormGroup({})
 
-  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService) { }
+  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService, private alert: AlertController) { }
 
   ngOnInit() {
     this.initForm()
@@ -27,25 +28,31 @@ export class CreateAgentComponent implements OnInit {
       username: ["", Validators.required],
       email: ["", Validators.required],
       phoneNumber: [0, [Validators.required, Validators.min(1)]],
-      type: ["", Validators.required],
-      workAddress: ["", Validators.required]
+      //type: ["", Validators.required],
+      //workAddress: ["", Validators.required]
     })
   }
 
   createAgent(){
     
     let agent = this.createAgentObject()
-
-    if(this.form.value["type"] == "Municipal")
-      this.adminApi.createMunicipalAgent(agent).subscribe(data => { this.verifyAgentCreationResult(data) })
-    else
-      this.adminApi.createPrivateAgent(agent).subscribe(data => { this.verifyAgentCreationResult(data) })
+    this.adminApi.createMunicipalAgent(agent).subscribe(data => { this.verifyAgentCreationResult(data) })
 
   }
 
   createAgentObject(){
 
-    if(this.form.value["type"] == "Municipal"){
+    return  new MunicipalAgent(
+      this.form.value["name"],
+      this.form.value["lastname"],
+      this.form.value["username"],
+      this.form.value["email"],
+      this.form.value["phoneNumber"],
+      this.hash.saltPassword("root"),
+      "laouina"
+    )
+
+    /*if(this.form.value["type"] == "Municipal"){
 
       return  new MunicipalAgent(
         this.form.value["name"],
@@ -68,16 +75,35 @@ export class CreateAgentComponent implements OnInit {
       this.form.value["phoneNumber"],
       this.hash.saltPassword("root"),
       this.form.value["workAddress"]
-    )
+    )*/
   }
 
   verifyAgentCreationResult(data: any){
     if(data.result){
-      console.log("agent created successfully")
+      this.showAlert(data.result, "Success")
       this.initForm()
     }
     else 
-      console.log("agent account creation failed")
+      this.showAlert(data.result, "Failure")
+  }
+
+
+  async showAlert(message: string, header: string){
+    await this.alert.create({
+      header: header,
+      message: message,
+      cssClass: "dialogue-content",
+      buttons: [
+        {
+          cssClass: "alertButton",
+          text: "Ok"
+        }
+      ]
+    }).then(box => box.present())
+  }
+
+  reset(){
+    this.initForm()
   }
 
 }

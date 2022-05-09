@@ -39,7 +39,8 @@ export class AccountSettingsComponent implements OnInit {
       localStorage.getItem('username'),
       localStorage.getItem('email'),
       localStorage.getItem('phoneNumber'),
-      ""
+      "",
+      localStorage.getItem("workAddress")
     )
 
     this.initForm(this.admin)
@@ -59,6 +60,7 @@ export class AccountSettingsComponent implements OnInit {
       this.form.value["email"],
       this.form.value["phoneNumber"],
       this.hash.saltPassword(this.form.value["password"]),
+      localStorage.getItem("workAddress")
     )
 
 
@@ -93,14 +95,14 @@ export class AccountSettingsComponent implements OnInit {
       buttons: [
         {
           cssClass: "alertButton",
-          text: "Ok"
+          text: "Ok",
         }
       ]
     }).then(box => box.present())
   }
 
   reset(){
-    this.initForm(new Admin("","","","","",""))
+    this.initForm(new Admin("","","","","","",""))
   }
 
 }

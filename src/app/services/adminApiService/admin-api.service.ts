@@ -34,24 +34,60 @@ export class AdminApiService {
   }
 
 
+
+
+
   //check if acces token is valid
   checkTokenValidity(token: string): Observable<any>{
     return this.http.get<string>(URL+"/login/checkTokenValidity/"+token)
   }
+
+
+
+
+  
 
   //getting user data
   getDrivers(): Observable<Driver[]> {
     return this.http.get<Driver[]>(URL+"/manageUsers/getDrivers/")
   }
 
+  getPrivateAgents(workAddress: string): Observable<Agent[]> {
+    return this.http.get<Agent[]>(URL+"/manageUsers/getPrivateAgents/"+ workAddress)
+  }
+
+  getMunicipalAgents(workAddress: string): Observable<Agent[]> {
+    return this.http.get<Agent[]>(URL+"/manageUsers/getMunicipalAgents/"+workAddress)
+  }
+
+  getAdmins(workAddress: string, username: string): Observable<any> {
+    return this.http.post(URL+"/manageUsers/getAdmins/"+workAddress, {"username": username})
+  }
+  
+
   getAccountData(username: string): Observable<any> {
     return this.http.get(URL+"manageUsers/getAdminData/"+username)
   }
+
+
+
 
   //deleting accounts
   deleteDriver(username: string): Observable<any> {
     return this.http.post(URL+"/manageUsers/deleteDriver/", {"username": username})
   }
+
+  deleteAgent(username: string): Observable<any> {
+    return this.http.post(URL+"/manageUsers/deleteAgent/", {"username": username})
+  }
+
+  deleteAdmin(username: string): Observable<any> {
+    return this.http.post(URL+"/manageUsers/deleteAdmin/", {"username": username})
+  }
+
+
+
+
 
   //updating accounts
   updateAdminAccount(admin: Admin): Observable<any> {

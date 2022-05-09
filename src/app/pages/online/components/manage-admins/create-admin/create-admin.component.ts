@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Admin } from 'src/app/models/Admin';
 import { AdminApiService } from 'src/app/services/adminApiService/admin-api.service';
 import { HashingService } from 'src/app/services/hashingService/hashing.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-admin',
@@ -13,7 +14,7 @@ export class CreateAdminComponent implements OnInit {
 
   form = new FormGroup({})
 
-  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService) { }
+  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService, private alert: AlertController) { }
 
   ngOnInit() {
     this.initForm()
@@ -33,20 +34,41 @@ export class CreateAdminComponent implements OnInit {
 
     let admin = new Admin(
       this.form.value["name"],
-        this.form.value["lastname"],
-        this.form.value["username"],
-        this.form.value["email"],
-        this.form.value["phoneNumber"],
-        this.hash.saltPassword("root"),
+      this.form.value["lastname"],
+      this.form.value["username"],
+      this.form.value["email"],
+      this.form.value["phoneNumber"],
+      this.hash.saltPassword("root"),
+      localStorage.getItem("workAddress")
     )
 
     this.adminApi.createAdminAccount(admin).subscribe(data => {
-      if(data.result){
-        console.log("admin account created successfully")
+      if(data.result == "Admin account created successfully"){
+        this.showAlert(data.result, "Success")
         this.initForm()
       }
       else 
-        console.log("admin account creation failed")
+        this.showAlert(data.result, "Failure")
+
     })
+  }
+
+
+  async showAlert(message: string, header: string){
+    await this.alert.create({
+      header: header,
+      message: message,
+      cssClass: "dialogue-content",
+      buttons: [
+        {
+          cssClass: "alertButton",
+          text: "Ok"
+        }
+      ]
+    }).then(box => box.present())
+  }
+
+  reset(){
+    this.initForm()
   }
 }

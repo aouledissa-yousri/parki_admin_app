@@ -24,8 +24,13 @@ export class LoginComponent implements OnInit {
     private alert: AlertController) { }
 
   ngOnInit() {
-    this.initForm()
     this.stopLoading()
+    this.initForm()
+  }
+
+  ionViewDidEnter(){
+    this.stopLoading()
+    this.initForm()
   }
 
   initForm(){
@@ -42,11 +47,11 @@ export class LoginComponent implements OnInit {
       this.hash.saltPassword(this.form.value["password"])
     )
 
-    this.loading = true
 
     this.adminApi.login(credentials).subscribe(data => {
       switch(data.message){
         case "success":
+          this.loading = true
           this.getUserData(data)
           this.router.navigate(["dashboard"])
           return
@@ -102,6 +107,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("email", data.user.email)
     localStorage.setItem("phoneNumber", data.user.phoneNumber)
     localStorage.setItem("username", data.user.username)
+    localStorage.setItem("workAddress", data.user.workAddress)
   }
   
 

@@ -1,3 +1,43 @@
-<p>
-  admins-list works!
-</p>
+<div class = "container ">
+  <h1 style = "width: fit-content;">
+    <b>Admins list</b>
+  </h1>
+
+     <ngx-datatable 
+      class = "material driver-table"
+      [rows] = "admins"
+      [rowHeight] = "80"
+      [columns] = "columns"
+      [columnHeight] = "50"
+      [sortType] = "multi"
+      [headerHeight] = "50"
+      [limit]="4"
+      [footerHeight]="50">
+
+
+
+      <ngx-datatable-column name = "id" #column width = "50">
+        <ng-template let-row="row" let-value="value" let-rowIndex = "rowIndex" ngx-datatable-cell-template>
+          <p>{{rowIndex + 1}}</p>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngFor = "let column of columns; index as i" name = "{{column.name}}" #column [width] = "column.width">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p>{{value}}</p>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name = "Actions" width = "200">
+        <ng-template #buttonsTemplate let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
+          <ion-button color = "primary" class = "action" >See More</ion-button>
+          <ion-button color = "danger" class = "action" (click) = "deleteConfirmationDialog(rowIndex)">Delete</ion-button>
+        </ng-template>
+     </ngx-datatable-column>
+
+
+    </ngx-datatable> <br>
+
+    <ion-button color = "success" (click) = "createAdmin()">Create new admin</ion-button>
+
+</div>

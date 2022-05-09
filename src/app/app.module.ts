@@ -30,6 +30,7 @@ import { AdminsListComponent } from './pages/online/components/manage-admins/adm
     DriversListComponent,
     AgentsListComponent,
     AdminsListComponent,
+    CreateAgentComponent,
     AccountSettingsComponent
   ],
   entryComponents: [],

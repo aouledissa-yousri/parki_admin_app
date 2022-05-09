@@ -9,6 +9,7 @@ export class Admin extends User {
         public email: string,
         public phoneNumber: string,
         public password: string,
+        public workAddress: string
     ){
         super(name, lastname, username, email, phoneNumber, password)
     }

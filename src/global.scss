@@ -29,13 +29,15 @@
 @import '~@swimlane/ngx-datatable/themes/material.scss';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
 
-.alertButton{
+.alertButton, .cancelButton, .confirmButton{
     background: linear-gradient(to top right, rgb(0, 223, 137), rgb(199, 245, 226)) !important;
     color: white !important;
     margin-right: 30% !important;
     font-weight: bold !important;
     width: 40% !important;
     padding-right: 17% !important;
+    display: inline !important;
+    border-radius: 5px !important;
 }
 
 .dialogue-content{
@@ -43,4 +45,17 @@
     .alert-head {
         text-align: center !important;
     }
+}
+
+.cancelButton{
+    background: linear-gradient(to top right, rgb(241, 14, 63), rgb(245, 199, 199)) !important;
+    margin-right: 5% !important;
+    margin-bottom: -15% !important;
+    padding-right: 10% !important;
+}
+
+.confirmButton{
+    padding-right: 10% !important;
+    margin-right: 50% !important;
+    margin-bottom: 10% !important;
 }

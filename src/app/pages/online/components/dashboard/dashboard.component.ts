@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem("phoneNumber")
     localStorage.removeItem("name")
     localStorage.removeItem("token")
+    localStorage.removeItem("workAddress")
     this.router.navigate([""])
   }
 
