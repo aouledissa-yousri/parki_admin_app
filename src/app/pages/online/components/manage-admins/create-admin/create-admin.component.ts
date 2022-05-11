@@ -4,6 +4,7 @@ import { Admin } from 'src/app/models/Admin';
 import { AdminApiService } from 'src/app/services/adminApiService/admin-api.service';
 import { HashingService } from 'src/app/services/hashingService/hashing.service';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-admin',
@@ -14,7 +15,14 @@ export class CreateAdminComponent implements OnInit {
 
   form = new FormGroup({})
 
-  constructor(private builder: FormBuilder, private adminApi: AdminApiService, private hash: HashingService, private alert: AlertController, private loadingAlert: LoadingController) { }
+  constructor(
+    private builder: FormBuilder, 
+    private adminApi: AdminApiService, 
+    private hash: HashingService, 
+    private alert: AlertController, 
+    private loadingAlert: LoadingController,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.initForm()
@@ -26,13 +34,11 @@ export class CreateAdminComponent implements OnInit {
       lastname: ["", Validators.required],
       username: ["", Validators.required],
       email: ["", Validators.required],
-      phoneNumber: [0, [Validators.required, Validators.min(1)]],
+      phoneNumber: [0, [Validators.required, Validators.min(10000000), Validators.max(99999999)] ],
     })
   }
 
-  createAdmin(){
-
-    this.showLoadingBox()
+  createAdmin(loading: any){
 
     let admin = new Admin(
       this.form.value["name"],
@@ -45,6 +51,7 @@ export class CreateAdminComponent implements OnInit {
     )
 
     this.adminApi.createAdminAccount(admin).subscribe(data => {
+      loading.dismiss()
       if(data.result == "Admin account created successfully"){
         this.showAlert(data.result, "Success")
         this.initForm()
@@ -74,11 +81,19 @@ export class CreateAdminComponent implements OnInit {
     this.initForm()
   }
 
-  async showLoadingBox(){
-    await this.loadingAlert.create({
+  submitAdminData(id){
+    let loadingIndicator = this.loadingAlert.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 2000,
-    }).then(load => load.present())
+    })
+
+    loadingIndicator.then(loading => {
+      loading.present()
+      this.createAdmin(loading)
+    })
+  }
+
+  back(){
+    this.router.navigate(["dashboard/manage_admins"])
   }
 }

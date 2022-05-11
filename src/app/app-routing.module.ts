@@ -13,6 +13,10 @@ import { AccountSettingsComponent } from './pages/online/components/account-sett
 import { CarsListComponent } from './pages/online/components/manage-drivers/cars-list/cars-list.component';
 import { PaymentsComponent } from './pages/online/components/manage-drivers/payments/payments.component';
 import { ViolationsListComponent } from './pages/online/components/manage-drivers/violations-list/violations-list.component';
+import { ParkingLotsListComponent } from './pages/online/components/manage-parking-lots/parking-lots-list/parking-lots-list.component';
+import { MunicipalZonesListComponent } from './pages/online/components/manage-municipal-car-zones/municipal-zones-list/municipal-zones-list.component';
+import { CreateMunicipalZoneComponent } from './pages/online/components/manage-municipal-car-zones/create-municipal-zone/create-municipal-zone.component';
+import { CreateParkingLotComponent } from './pages/online/components/manage-parking-lots/create-parking-lot/create-parking-lot.component';
 
 const routes: Routes = [
   {path: "", canActivate: [LoggedOutGuard], children: [
@@ -40,6 +44,16 @@ const routes: Routes = [
       {path: "", component: AgentsListComponent},
       {path: "create_agent", component: CreateAgentComponent},
     ]},
+
+    {path: "manage_parking_lots", children: [
+      {path: "", component: ParkingLotsListComponent},
+      {path: "create_parking_lot", component: CreateParkingLotComponent},
+    ]},
+
+    {path: "manage_municipal_car_zones", children: [
+      {path: "", component: MunicipalZonesListComponent},
+      {path: "create_municipal_zone", component: CreateMunicipalZoneComponent},
+    ]}
 
 
 

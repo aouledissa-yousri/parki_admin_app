@@ -1,0 +1,32 @@
+<div class = "container">
+  <h1 style = "width: fit-content;">
+    <b>Create Municipal Car Zone</b>
+  </h1>
+
+  <form [formGroup] = "form">
+    <ion-list>
+      <ion-item>
+        <ion-label>Municipality</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "municipality" ></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Hour Cost</ion-label>
+        <ion-input type = "number" color = "medium" formControlName = "pricePerHour" ></ion-input>
+      </ion-item><br>
+
+      <ion-item>
+        <ion-label>Address</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "address" ></ion-input>
+      </ion-item>
+    
+      <div class = "actions">
+        <ion-button color = "primary" (click) = "back()">Back</ion-button>
+        <ion-button color = "success" (click) = "createMunicipalZone()" [disabled] = "form.invalid">Create Municipal Car Zone</ion-button>&nbsp;
+        <ion-button color = "danger" (click) = "reset()">Reset</ion-button>
+      </div>
+    </ion-list>
+  </form>
+
+
+</div>

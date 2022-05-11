@@ -25,6 +25,10 @@ import { SmallLoadingComponent } from './common-components/small-loading/small-l
 import { CarsListComponent } from './pages/online/components/manage-drivers/cars-list/cars-list.component';
 import { PaymentsComponent } from './pages/online/components/manage-drivers/payments/payments.component';
 import { ViolationsListComponent } from './pages/online/components/manage-drivers/violations-list/violations-list.component';
+import { ParkingLotsListComponent } from './pages/online/components/manage-parking-lots/parking-lots-list/parking-lots-list.component';
+import { MunicipalZonesListComponent } from './pages/online/components/manage-municipal-car-zones/municipal-zones-list/municipal-zones-list.component';
+import { CreateParkingLotComponent } from './pages/online/components/manage-parking-lots/create-parking-lot/create-parking-lot.component';
+import { CreateMunicipalZoneComponent } from './pages/online/components/manage-municipal-car-zones/create-municipal-zone/create-municipal-zone.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,11 @@ import { ViolationsListComponent } from './pages/online/components/manage-driver
     SmallLoadingComponent,
     CarsListComponent,
     PaymentsComponent,
-    ViolationsListComponent
+    ViolationsListComponent,
+    ParkingLotsListComponent,
+    MunicipalZonesListComponent,
+    CreateParkingLotComponent,
+    CreateMunicipalZoneComponent
   ],
   entryComponents: [],
   imports: [

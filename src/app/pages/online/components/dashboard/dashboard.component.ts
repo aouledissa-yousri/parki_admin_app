@@ -41,6 +41,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["dashboard/manage_admins"])
   }
 
+  manageParkingLots(){
+    this.router.navigate(["dashboard/manage_parking_lots"])
+  }
+
+  manageMunicipalCarZones(){
+    this.router.navigate(["dashboard/manage_municipal_car_zones"])
+  }
+
 
   isActive(route: string){
     return this.router.url == route

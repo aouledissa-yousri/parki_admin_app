@@ -46,14 +46,14 @@ export class AccountSettingsComponent implements OnInit {
     this.initForm(this.admin)
   }
 
-  updateAccount(){
+  updateAccount(loading: any){
 
     if(this.form.value["password"] == ""){
       this.showAlert("You must enter your new or current password to update your account data", "Error")
+      loading.dismiss()
       return
     }
 
-    this.showLoadingBox()
 
     this.admin = new Admin(
       this.form.value["name"],
@@ -67,10 +67,12 @@ export class AccountSettingsComponent implements OnInit {
 
 
     this.adminApi.updateAdminAccount(this.admin).subscribe(data => {
+      loading.dismiss()
       if(data.result == "account data has been updated successfully"){
         this.updateUserData(this.admin)
         this.showAlert(data.result, "Success")
-      }
+      }else 
+        this.showAlert(data.result, "Failure")
     })
   }
 
@@ -107,12 +109,16 @@ export class AccountSettingsComponent implements OnInit {
     this.initForm(new Admin("","","","","","",""))
   }
 
-  async showLoadingBox(){
-    await this.loadingAlert.create({
+  submitAdminData(){
+    let loadingIndicator = this.loadingAlert.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 2000,
-    }).then(load => load.present())
+    })
+
+    loadingIndicator.then(loading => {
+      loading.present()
+      this.updateAccount(loading)
+    })
   }
 
 }

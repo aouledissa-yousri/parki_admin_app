@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Agent } from 'src/app/models/Agent';
 import { Admin } from 'src/app/models/Admin';
 import { Driver } from 'src/app/models/Driver';
+import { MunicipalityZone } from '../../models/MunicipalityZone';
+import { ParkingLot } from '../../models/ParkingLot';
 
 const URL = "http://localhost:8000"
 
@@ -63,12 +65,12 @@ export class AdminApiService {
     return this.http.get<Agent[]>(URL+"/manageUsers/getPrivateAgents/"+ workAddress)
   }
 
-  getMunicipalAgents(workAddress: string): Observable<Agent[]> {
-    return this.http.get<Agent[]>(URL+"/manageUsers/getMunicipalAgents/"+workAddress)
+  getMunicipalAgents(): Observable<Agent[]> {
+    return this.http.get<Agent[]>(URL+"/manageUsers/getMunicipalAgents/")
   }
 
-  getAdmins(workAddress: string, username: string): Observable<any> {
-    return this.http.post(URL+"/manageUsers/getAdmins/"+workAddress, {"username": username})
+  getAdmins(username: string): Observable<any> {
+    return this.http.post(URL+"/manageUsers/getAdmins/", {"username": username})
   }
   
 
@@ -101,6 +103,45 @@ export class AdminApiService {
     return this.http.post(URL+"/manageUsers/updateAdminAccount/", {"newData": admin, "currentUsername": localStorage.getItem("username")})
   }
 
+
+
+
+  //getting parking spaces data 
+
+  getAvailableWorkPlaces(): Observable<any> {
+    return this.http.get<any>(URL+"/manageCarSpaces/getAvailableWorkPlaces/")
+  }
+
+  getMunicipalityZones(): Observable<MunicipalityZone[]> {
+    return this.http.get<MunicipalityZone[]>(URL+"/manageCarSpaces/getMunicipalityZones/")
+  }
+
+  getParkingLots(): Observable<ParkingLot[]> {
+    return this.http.get<ParkingLot[]>(URL+"/manageCarSpaces/getParkingLots/")
+
+  }
+
+
+  //creating car spaces 
+
+  createParkingLot(parkingLot: ParkingLot): Observable<any> {
+    return this.http.post(URL+"/manageCarSpaces/createParkingLot/", parkingLot)
+    
+  }
+
+  createMunicipalityZone(parkingLot: MunicipalityZone): Observable<any> {
+    return this.http.post(URL+"/manageCarSpaces/createMunicipalityZone/", parkingLot)
+  }
+
+  //deleting car spaces 
+
+  deleteParkingLot(address: string): Observable<any> {
+    return this.http.post(URL+'/manageCarSpaces/deleteParkingLot/', {"address": address})
+  }
+
+  deleteMunicipalityZone(address: string): Observable<any> {
+    return this.http.post(URL+'/manageCarSpaces/deleteMuncipalityZone/', {"address": address})
+  }
 
 
 

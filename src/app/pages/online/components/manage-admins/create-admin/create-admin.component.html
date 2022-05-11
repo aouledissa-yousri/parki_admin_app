@@ -32,7 +32,8 @@
             
   
       <div class = "actions">
-        <ion-button color = "success" (click) = "createAdmin()" [disabled] = "form.invalid">Create Admin</ion-button>&nbsp;
+        <ion-button color = "primary" (click) = "back()" >Back</ion-button>
+        <ion-button color = "success" (click) = "submitAdminData()" [disabled] = "form.invalid">Create Admin</ion-button>&nbsp;
         <ion-button color = "danger" (click) = "reset()">Reset</ion-button>
       </div>
     </ion-list>

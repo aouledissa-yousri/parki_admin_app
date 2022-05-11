@@ -1,0 +1,47 @@
+<div class = "container ">
+  <h1 style = "width: fit-content;">
+    <b>Parking lots</b>
+  </h1>
+
+
+      <app-small-loading [hidden] = "!loading"></app-small-loading>
+
+     <ngx-datatable 
+      class = "material driver-table"
+      [rows] = "parkingLots"
+      [rowHeight] = "80"
+      [columns] = "columns"
+      [columnHeight] = "50"
+      [sortType] = "multi"
+      [headerHeight] = "50"
+      [limit]="4"
+      [footerHeight]="50"
+      [hidden] = "loading">
+
+
+
+      <ngx-datatable-column name = "id" #column width = "50">
+        <ng-template let-row="row" let-value="value" let-rowIndex = "rowIndex" ngx-datatable-cell-template>
+          <p>{{rowIndex + 1}}</p>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column *ngFor = "let column of columns; index as i" name = "{{column.name}}" #column width = "250" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
+          <p *ngIf = "column.name !== 'Capacity'">{{value}}</p>
+          <p *ngIf = "column.name === 'Capacity'">{{parkingLots[rowIndex].nbPlaces}}</p>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name = "Actions" width = "270">
+        <ng-template #buttonsTemplate let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex = "rowIndex">
+          <ion-button color = "danger" (click) = "deleteConfirmationDialog(rowIndex)">Delete</ion-button>
+        </ng-template>
+     </ngx-datatable-column>
+
+
+    </ngx-datatable> <br>
+
+    <ion-button color = "success" (click) = "createParkingLot()" [hidden] = "loading">Create new parking lot</ion-button>
+
+</div>

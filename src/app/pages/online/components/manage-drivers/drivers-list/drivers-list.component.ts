@@ -36,13 +36,14 @@ export class DriversListComponent implements OnInit {
     })
   }
 
-  delete(id: number){
+  delete(id: number, loading: any){
     this.adminApi.deleteDriver(this.drivers[id].username).subscribe(data => {
       this.drivers = this.drivers.filter(driver => this.drivers.indexOf(driver) != id)
-
-      if(data.result == "Driver account has been deleted successfully"){
+      loading.dismiss()
+      if(data.result == "Driver account has been deleted successfully")
         this.showAlert(data.result, "Success")
-      }
+      else 
+        this.showAlert(data.result, "Failure")
 
     })
   }
@@ -73,8 +74,7 @@ export class DriversListComponent implements OnInit {
           cssClass: "confirmButton",
           text: "Confirm",
           handler: () => {
-            this.showLoadingBox()
-            this.delete(id)
+            this.showLoadingBox(id)
           }
         },
 
@@ -87,16 +87,20 @@ export class DriversListComponent implements OnInit {
 
   }
 
-  async showLoadingBox(){
-    await this.loadingAlert.create({
-      cssClass: 'my-custom-class',
-      message: 'Please wait...',
-      duration: 2000,
-    }).then(load => load.present())
-  }
-
   seeMore(id: number){
     this.router.navigate(["dashboard/manage_drivers/cars", this.drivers[id].username])
+  }
+
+  showLoadingBox(id){
+    let loadingIndicator = this.loadingAlert.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    })
+
+    loadingIndicator.then(loading => {
+      loading.present()
+      this.delete(id, loading)
+    })
   }
   
 

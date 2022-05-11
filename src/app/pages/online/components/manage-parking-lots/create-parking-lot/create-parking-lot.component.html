@@ -1,0 +1,32 @@
+<div class = "container">
+  <h1 style = "width: fit-content;">
+    <b>Create Parking Lot</b>
+  </h1>
+
+  <form [formGroup] = "form">
+    <ion-list>
+      <ion-item>
+        <ion-label>Address</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "address" ></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input type = "text" color = "medium" formControlName = "name" ></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Capacity</ion-label>
+        <ion-input type = "number" color = "medium" formControlName = "nbPlaces" ></ion-input>
+      </ion-item><br>
+  
+      <div class = "actions">
+        <ion-button color = "primary" (click) = "back()">Back</ion-button>
+        <ion-button color = "success" (click) = "submitParkingLotData()" [disabled] = "form.invalid">Create Parking Lot</ion-button>&nbsp;
+        <ion-button color = "danger" (click) = "reset()">Reset</ion-button>
+      </div>
+    </ion-list>
+  </form>
+
+
+</div>

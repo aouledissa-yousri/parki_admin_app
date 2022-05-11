@@ -7,38 +7,38 @@
     <ion-list>
       <ion-item>
         <ion-label>Name</ion-label>
-        <ion-input type = "text" color = "medium" formControlName = "name" (keyup.enter)="updateAccount()" ></ion-input>
+        <ion-input type = "text" color = "medium" formControlName = "name" (keyup.enter)="submitAdminData()" ></ion-input>
       </ion-item>
   
       <ion-item>
         <ion-label>Lastname</ion-label>
-        <ion-input type = "text" color = "medium" formControlName = "lastname" (keyup.enter)="updateAccount()"></ion-input>
+        <ion-input type = "text" color = "medium" formControlName = "lastname" (keyup.enter)="submitAdminData()"></ion-input>
       </ion-item>
   
       <ion-item>
         <ion-label>Email</ion-label>
-        <ion-input type = "text" color = "medium" formControlName = "email" (keyup.enter)="updateAccount()"></ion-input>
+        <ion-input type = "text" color = "medium" formControlName = "email" (keyup.enter)="submitAdminData()"></ion-input>
       </ion-item>
   
       <ion-item>
         <ion-label>Username</ion-label>
-        <ion-input type = "text" color = "medium" formControlName = "username" (keyup.enter)="updateAccount()"></ion-input>
+        <ion-input type = "text" color = "medium" formControlName = "username" (keyup.enter)="submitAdminData()"></ion-input>
       </ion-item>
   
       <ion-item>
         <ion-label>Phone Number</ion-label>
-        <ion-input type = "number" color = "medium" formControlName = "phoneNumber" (keyup.enter)="updateAccount()"></ion-input>
+        <ion-input type = "number" color = "medium" formControlName = "phoneNumber" (keyup.enter)="submitAdminData()"></ion-input>
       </ion-item>
       
       
       <ion-item>
         <ion-label>Password</ion-label>
-        <ion-input type = "password" color = "medium" formControlName = "password" (keyup.enter)="updateAccount()"></ion-input>
+        <ion-input type = "password" color = "medium" formControlName = "password" (keyup.enter)="submitAdminData()"></ion-input>
       </ion-item><br><br>
       
   
       <div class = "actions">
-        <ion-button color = "success" (click) = "updateAccount()">Save</ion-button>&nbsp;
+        <ion-button color = "success" (click) = "submitAdminData()">Save</ion-button>&nbsp;
         <ion-button color = "danger" (click) = "reset()">Reset</ion-button>
       </div>
     </ion-list>

@@ -30,7 +30,7 @@ export class AdminsListComponent implements OnInit {
   }
 
   private getAdmins(){
-    this.adminApi.getAdmins(localStorage.getItem("workAddress"), localStorage.getItem("username")).subscribe(admins => {
+    this.adminApi.getAdmins(localStorage.getItem("username")).subscribe(admins => {
       this.admins = admins
       this.loading = false
     })
@@ -47,8 +47,7 @@ export class AdminsListComponent implements OnInit {
           cssClass: "confirmButton",
           text: "Confirm",
           handler: () => {
-            this.showLoadingBox()
-            this.delete(id)
+            this.showLoadingBox(id)
           }
         },
 
@@ -61,14 +60,15 @@ export class AdminsListComponent implements OnInit {
 
   }
 
-  delete(id: number){
+  delete(id: number, loading: any){
     this.adminApi.deleteAdmin(this.admins[id].username).subscribe(data => {
       this.admins = this.admins.filter(admin => this.admins.indexOf(admin) != id)
       
-      if(data.result == "Admin account has been deleted successfully"){
+      if(data.result == "Admin account has been deleted successfully")
        this.showAlert(data.result, "Success")
-
-      }
+      else 
+        this.showAlert(data.result, "Failure")
+      loading.dismiss()
 
     })
   }
@@ -95,12 +95,16 @@ export class AdminsListComponent implements OnInit {
   }
 
 
-  async showLoadingBox(){
-    await this.loadingAlert.create({
+  showLoadingBox(id){
+    let loadingIndicator = this.loadingAlert.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 2000,
-    }).then(load => load.present())
+    })
+
+    loadingIndicator.then(loading => {
+      loading.present()
+      this.delete(id, loading)
+    })
   }
   
 

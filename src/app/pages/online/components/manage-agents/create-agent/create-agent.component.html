@@ -29,10 +29,29 @@
         <ion-label>Phone Number</ion-label>
         <ion-input type = "number" color = "medium" formControlName = "phoneNumber"></ion-input>
       </ion-item>
+
+
+        <ion-item>
+          <ion-label>Agent type</ion-label>
+          <ion-select formControlName = "type" (ionChange) = "getWorkPlaces()">
+            <ion-select-option value = "Municipal" [selected] = "true">Municipal</ion-select-option>
+            <ion-select-option value = "Private" >Private</ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+      <ion-item>
+        <ion-label>Place of work</ion-label>
+        <ion-select formControlName = "workAddress" [disabled] = "workPlaces.length === 0">
+            <ion-select-option *ngFor = "let workPlace of workPlaces" [value] = "workPlace">{{workPlace}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+       
             
   
       <div class = "actions">
-        <ion-button color = "success" (click) = "createAgent()" [disabled] = "form.invalid">Create Agent</ion-button>&nbsp;
+        <ion-button color = "primary" (click) = "back()" >Back</ion-button>
+        <ion-button color = "success" (click) = "submitAgentData()" [disabled] = "form.invalid">Create Agent</ion-button>&nbsp;
         <ion-button color = "danger" (click) = "reset()">Reset</ion-button>
       </div>
     </ion-list>

@@ -29,20 +29,22 @@ export class AgentsListComponent implements OnInit {
   }
 
   private getAgents(){
-    this.adminApi.getMunicipalAgents("laouina").subscribe(agents => {
+    this.adminApi.getMunicipalAgents().subscribe(agents => {
       this.agents = agents
       this.loading = false
     })
   }
 
-  delete(id: number){
+  delete(id: number, loading){
     this.adminApi.deleteAgent(this.agents[id].username).subscribe(data => {
       this.agents = this.agents.filter(agent => this.agents.indexOf(agent) != id)
       
-      if(data.result == "Agent account has been deleted successfully"){
+      loading.dismiss()
+      if(data.result == "Agent account has been deleted successfully")
        this.showAlert(data.result, "Success")
-
-      }
+      else 
+        this.showAlert(data.result, "Failure")
+      
 
     })
   }
@@ -55,7 +57,7 @@ export class AgentsListComponent implements OnInit {
       buttons: [
         {
           cssClass: "alertButton",
-          text: "Yes",
+          text: "OK",
         },
         
       ]
@@ -78,8 +80,7 @@ export class AgentsListComponent implements OnInit {
           cssClass: "confirmButton",
           text: "Confirm",
           handler: () => {
-            this.showLoadingBox()
-            this.delete(id)
+            this.showLoadingBox(id)
           }
         },
 
@@ -92,12 +93,16 @@ export class AgentsListComponent implements OnInit {
 
   }
 
-  async showLoadingBox(){
-    await this.loadingAlert.create({
+  showLoadingBox(id){
+    let loadingIndicator = this.loadingAlert.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 2000,
-    }).then(load => load.present())
+    })
+
+    loadingIndicator.then(loading => {
+      loading.present()
+      this.delete(id, loading)
+    })
   }
   
 
